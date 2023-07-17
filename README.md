@@ -1,2 +1,2 @@
-# Shop_online_Django_k
+# Shop_online_Django_Mega
 Django
