@@ -39,6 +39,7 @@ class Order_detail(models.Model):
     categories_ID = models.TextField(categories,max_length=30)
     quantity = models.TextField(max_length=20)  
     item_price = models.TextField(max_length=12)
+    Order_ID = models.ForeignKey(Order,max_length=30,on_delete=models.CASCADE)
     
 
       

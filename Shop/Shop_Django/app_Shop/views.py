@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Customer , Products , categories
+from .models import Customer , Products , categories , Order
 from django.http import HttpResponse
 def serch_field_Customer(request , User_Name):
     if User_Name == '*':
@@ -108,6 +108,9 @@ def serch_field_categories(request , categories_ID):
 
 
 
+
+
+
 def add_field_categories(request, categories_ID, categories_name, categories_image):
     new_word = categories(categories_ID=categories_ID, categories_name=categories_name, categories_image=categories_image)
     new_word.save()
@@ -129,3 +132,102 @@ def Update_field_categories(request,categories_ID,categories_name,categories_ima
         customer.categories_image = categories_image
         customer.save()
     return HttpResponse(f'{count_before_update} {categories_image} updated successfully!')
+
+
+
+
+
+
+
+def serch_field_Order(request , Order_ID):
+    if Order_ID == '*':
+        Order_ID = Order.objects.all()
+        return JsonResponse(list(words.values()), safe=False)
+    else :
+      try:
+          words = Order.objects.filter(Order_ID=Order_ID) # فیلتر کردن بر اساس first_name
+          word_list = []
+          for word in words:
+              word_dict = {'Order_ID': word.Order_ID, 'Customer_ID': word.Customer_ID,'Customer_ID':word.Customer_ID}
+              word_list.append(word_dict)
+          return JsonResponse(word_list, safe=False)
+      except Order.DoesNotExist:
+          return categories(status=404)
+
+
+def add_field_Order(request, Order_ID, Customer_ID_id, Order_date):
+    new_order = Order(Order_ID=Order_ID, Customer_ID_id=Customer_ID_id, Order_date=Order_date)
+    new_order.save()
+    return HttpResponse('Order ' + Order_ID + ' added successfully!')
+
+
+
+def Delete_field_Order(request, Order_ID):
+    Categories = Order.objects.filter(Order_ID=Order_ID)
+    count_before_delete = Categories.count()
+    for category in Categories:
+        category.delete()
+    return HttpResponse(f"All {count_before_delete} categories with the name '{Order_ID}' were successfully deleted.")
+
+def Update_field_Order(request,Order_ID,Customer_ID_id,Order_date):
+    customers = Order.objects.filter(Order_ID=Order_ID)
+    count_before_update = customers.count()
+    for customer in customers:
+        customer.Customer_ID_id = Customer_ID_id
+        customer.Order_date = Order_date
+        customer.save()
+    return HttpResponse(f'{count_before_update} {Order_ID} updated successfully!')
+
+
+
+class Order_detail(models.Model):
+    Product_ID = models.ForeignKey(Products,max_length=30,on_delete=models.CASCADE)
+    Customer_ID = models.ForeignKey(Customer,max_length=30,on_delete=models.CASCADE)  
+    item_price = models.TextField(max_length=12)
+    categories_ID = models.TextField(categories,max_length=30)
+    quantity = models.TextField(max_length=20)  
+    item_price = models.TextField(max_length=12)
+    Order_ID = models.ForeignKey(Order,max_length=30,on_delete=models.CASCADE)
+
+
+
+def serch_field_Order(request , Order_ID):
+    if Order_ID == '*':
+        Order_ID = Order.objects.all()
+        return JsonResponse(list(words.values()), safe=False)
+    else :
+      try:
+          words = Order.objects.filter(Order_ID=Order_ID) # فیلتر کردن بر اساس first_name
+          word_list = []
+          for word in words:
+              word_dict = {'Order_ID': word.Order_ID, 'Customer_ID': word.Customer_ID_id,'item_price':word.item_price,'categories_ID': word.categories_ID, 'quantity': word.quantity,'Product_ID':word.Product_ID}
+              word_list.append(word_dict)
+          return JsonResponse(word_list, safe=False)
+      except Order.DoesNotExist:
+          return categories(status=404)
+
+
+def add_field_Order(request, Order_ID, Customer_ID_id, Order_date):
+    new_order = Order(Order_ID=Order_ID, Customer_ID_id=Customer_ID_id, Order_date=Order_date)
+    new_order.save()
+    return HttpResponse('Order ' + Order_ID + ' added successfully!')
+
+
+
+def Delete_field_Order(request, Order_ID):
+    Categories = Order.objects.filter(Order_ID=Order_ID)
+    count_before_delete = Categories.count()
+    for category in Categories:
+        category.delete()
+    return HttpResponse(f"All {count_before_delete} categories with the name '{Order_ID}' were successfully deleted.")
+
+def Update_field_Order(request,Order_ID,Customer_ID_id,Order_date):
+    customers = Order.objects.filter(Order_ID=Order_ID)
+    count_before_update = customers.count()
+    for customer in customers:
+        customer.Customer_ID_id = Customer_ID_id
+        customer.Order_date = Order_date
+        customer.save()
+    return HttpResponse(f'{count_before_update} {Order_ID} updated successfully!')
+
+

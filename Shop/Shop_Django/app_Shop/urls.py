@@ -16,4 +16,16 @@ urlpatterns = [
     path('add_field_categories/<str:categories_ID>/<str:categories_name>/<str:categories_image>/', views.add_field_categories, name='add_field_categories'),
     path('Delete_field_categories/<str:categories_ID>/', views.Delete_field_categories, name='Delete_field_categories'),
     path('Update_field_categories/<str:categories_ID>/<str:categories_name>/<str:categories_image>/', views.Update_field_categories, name='Update_field_categories'),
+
+
+    path('serch_field_Order/<str:Order_ID>/', views.serch_field_Order, name='serch_field_Order'),
+    path('add_field_Order/<str:Order_ID>/<str:Customer_ID_id>/<str:Order_date>/', views.add_field_Order, name='add_field_Order'),
+    path('Delete_field_Order/<str:Order_ID>/', views.Delete_field_Order, name='Delete_field_Order'),
+    path('Update_field_Order/<str:Order_ID>/<str:Customer_ID_id>/<str:Order_date>/', views.Update_field_Order, name='Update_field_Order'),
+
+
+    path('serch_field_Order/<str:Order_ID>/', views.serch_field_Order, name='serch_field_Order'),
+    path('add_field_Order/<str:Order_ID>/<str:Customer_ID_id>/<str:Order_date>/', views.add_field_Order, name='add_field_Order'),
+    path('Delete_field_Order/<str:Order_ID>/', views.Delete_field_Order, name='Delete_field_Order'),
+    path('Update_field_Order/<str:Order_ID>/<str:Customer_ID_id>/<str:Order_date>/', views.Update_field_Order, name='Update_field_Order'),
 ]
